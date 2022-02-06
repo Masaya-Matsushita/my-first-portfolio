@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 header {
   background-color: rgb(85, 85, 85);
   height: 5em;
@@ -20,9 +22,13 @@ header {
   margin: 1.6em;
 }
 
+#header-list li a {
+  color: black;
+}
+
 main {
   background-color: rgb(200, 200, 200);
-  /* フォントいい感じにする */
+  font-family: serif;
 }
 
 #home {
@@ -31,11 +37,25 @@ main {
   position: relative;
 }
 
+@keyframes homeImageAnimation {
+  0% {
+    opacity: 0;
+  }
+}
+
 #home-image {
   object-fit: contain;
   width: 100%;
   height: 100%;
   opacity: 0.5;
+  animation: homeImageAnimation 3s;
+}
+
+@keyframes homeTextAnimation {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.3em;
+  }
 }
 
 #home-text {
@@ -46,6 +66,7 @@ main {
   font-family: "Alegreya Sans SC", sans-serif;
   font-size: 2.5rem;
   color: black;
+  animation: homeTextAnimation 4s;
 }
 
 .section-title {
@@ -53,34 +74,73 @@ main {
   padding-left: 1em;
   font-size: 2rem;
   border-bottom: black solid 1px;
+  opacity: 0;
+  letter-spacing: 0.3em;
+  transition: 2s;
+}
+
+.animation {
+  letter-spacing: normal;
+  opacity: 1;
+}
+
+#about-package {
+  width: auto;
+  height: 30em;
+  position: relative;
+}
+
+.section-content {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 2s 0.5s;
+}
+
+.show {
+  opacity: 1;
+  transform: none;
+}
+
+#text-back {
+  background-color: #fff;
+  width: 35%;
+  height: 10em;
+  border: black solid 1px;
+  border-radius: 10px;
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  position: relative;
 }
 
 #about-text {
-  background-color: white;
-  float: left;
-  border: black solid 1px;
-  border-radius: 10px;
-  margin: 5em 3em 0 3em;
-  width: 40%;
-  text-align: center;
-  padding: 3.5em 0;
+  font-family: "Gothic";
+  white-space: nowrap;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
 }
 
 #about-image {
-  width: 30%;
-  margin: 0 3em 0 6em;
+  width: 25%;
+  position: absolute;
+  top: 5%;
+  left: 60%;
   border-radius: 50%;
-  /* ふわっと切り替わるようにする */
+  opacity: 1;
 }
 
 #about-button {
-  width: 25em;
-  height: 5em;
-  border: black solid 1px;
-  background-color: white;
-  display: block;
-  margin: 5em auto 10em auto;
-  /* ボタンデザインいい感じにする */
+  font-family: "Gothic";
+  width: 30%;
+  height: 15%;
+  background-color: rgba(85, 85, 85, 0.3);
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #links-text {

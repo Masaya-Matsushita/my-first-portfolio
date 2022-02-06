@@ -3,29 +3,81 @@ const abText = document.getElementById("about-text")
 const abImage = document.getElementById("about-image")
 const abButton = document.getElementById("about-button")
 
-abButton.onclick = function () {
-  if (abPackage.classList.contains("my-name")) {
-    abText.textContent = "Campus：香川大学"
-    abImage.src = "./Images/CampusImage.jpg"
-    abImage.alt = "大学の写真です。"
-    abPackage.className = "my-campus"
-  } else if (abPackage.classList.contains("my-campus")) {
-    abText.textContent = "Hobby：テニス"
-    abImage.src = "./Images/TennisImage.jpg"
-    abImage.alt = "テニスの写真です。"
-    abPackage.className = "my-hobby"
-  } else if (abPackage.classList.contains("my-hobby")) {
-    abText.textContent = "Favorite：甘いもの"
-    abImage.src = "./Images/SweetsImage2.jpg"
-    abImage.alt = "スイーツの写真です。"
-    abPackage.className = "my-favorite"
-  } else if (abPackage.classList.contains("my-favorite")) {
-    abText.textContent = "Name：松下将也"
-    abImage.src = "./Images/MeImage.jpg"
-    abImage.alt = "私の写真です。"
-    abPackage.className = "my-name"
+const tx = [
+  "Campus：香川大学",
+  "Hobby：テニス",
+  "Favorite：甘いもの",
+  "Name：松下将也",
+]
+const im = [
+  "./Images/CampusImage.jpg",
+  "./Images/TennisImage.jpg",
+  "./Images/SweetsImage.jpg",
+  "./Images/MeImage.jpg",
+]
+const al = [
+  "大学の写真です。",
+  "テニスの写真です。",
+  "スイーツの写真です。",
+  "私の写真です。",
+]
+const cl = ["my-name", "my-campus", "my-hobby", "my-favorite"]
+
+const displayContent = function (n) {
+  abText.textContent = tx[n]
+  abImage.src = im[n]
+  abImage.alt = al[n]
+  abPackage.className = cl[n + 1]
+}
+
+const changeAbout = function () {
+  if (abPackage.classList.contains(cl[0])) {
+    displayContent(0)
+  } else if (abPackage.classList.contains(cl[1])) {
+    displayContent(1)
+  } else if (abPackage.classList.contains(cl[2])) {
+    displayContent(2)
+  } else if (abPackage.classList.contains(cl[3])) {
+    displayContent(3)
+    abPackage.className = cl[0]
   }
 }
 
-// onclick時の内容書き換える
-// 配列&関数でリファクタリングする
+let opa = 1
+let fadeOutId = null
+let fadeInId = null
+
+abButton.onclick = function () {
+  fadeOutId = setInterval(fadeOut, 10)
+}
+const fadeOut = function () {
+  opa -= 0.1
+  abText.style.opacity = opa
+  abImage.style.opacity = opa
+  if (opa <= 0.2) {
+    changeAbout()
+    fadeInId = setInterval(fadeIn, 10)
+    clearInterval(fadeOutId)
+  }
+}
+const fadeIn = function () {
+  opa += 0.1
+  abText.style.opacity = opa
+  abImage.style.opacity = opa
+  if (opa >= 1) {
+    clearInterval(fadeInId)
+  }
+}
+
+const targetTitle = document.querySelectorAll(".section-title")
+const targetContent = document.querySelectorAll(".section-content")
+
+document.addEventListener("scroll", function () {
+  for (let i = 0; i < targetTitle.length; i++) {
+    const getElementDistance = targetTitle[i].getBoundingClientRect().top
+    if (getElementDistance < 500) {
+      targetTitle[i].classList.add("animation")
+      targetContent[i].classList.add("show")
+    }
+  }
+})
